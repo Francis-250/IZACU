@@ -24,46 +24,49 @@ const MovieDetail = () => {
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
   const [category, setCategory] = useState("");
   const [translator, setTranslator] = useState("");
-  const [status, setStatus] = useState("Active");
+  const [status, setStatus] = useState("released");
   const [releaseDate, setReleaseDate] = useState("");
   const [description, setDescription] = useState("");
+  const [featured, setFeatured] = useState({
+    yes: 1,
+    no: 0,
+  });
+  const [season, setSeason] = useState({
+    yes: 1,
+    no: 0,
+  });
+  const [episodes, setEpisodes] = useState("");
 
   const values = {
     title,
-    driveUrl,
+    video_url: driveUrl,
+    thumbnail_url: thumbnailUrl,
     duration,
-    thumbnailUrl,
     category,
     translator,
     country,
     status,
-    releaseDate,
+    release_date: releaseDate,
     description,
+    featured: featured.yes ? 1 : 0,
+    season: season.yes ? 1 : 0,
+    episode: episodes,
   };
 
   const handleForm = (e) => {
     e.preventDefault();
     console.log(values);
-    if (!driveUrl) {
-      alert("Google Drive URL is required.");
-    }
     axios
       .post("http://localhost:3000/movie", values)
       .then((res) => {
-        console.log("Movie added successfully", res.data);
-        setTitle("");
-        setCategory("");
-        setCountry("");
-        setDescription("");
-        setDriveUrl("");
-        setStatus("Active");
-        setReleaseDate("");
-        setTranslator("");
-        setDuration("");
-        setMessage("Movie added successfully");
+        console.log("Movie Created", res.data);
+        setMessage("Movie Added");
       })
       .catch((err) => {
-        console.error("Error adding movie:", err);
+        console.log(err);
+        setMessage(
+          "Error: " + err.response?.data?.message || "Failed to add movie"
+        );
       });
   };
 
@@ -149,12 +152,12 @@ const MovieDetail = () => {
                       <span>|</span>
                       <span
                         className={
-                          m.status === "Active"
+                          m.status === "released"
                             ? "text-green-600"
                             : "text-red-600"
                         }
                       >
-                        {m.status === "Active" ? "1" : "0"}
+                        {m.status === "released" ? "1" : "0"}
                       </span>
                     </td>
                     <td className="px-6 py-3 text-gray-700">{m.duration}</td>
@@ -301,8 +304,9 @@ const MovieDetail = () => {
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
                 >
-                  <option value="Active">Active</option>
-                  <option value="Inactive">Inactive</option>
+                  <option value="released">Released</option>
+                  <option value="upcoming">Upcoming</option>
+                  <option value="draft">Draft</option>
                 </select>
               </div>
 
@@ -319,13 +323,82 @@ const MovieDetail = () => {
               </div>
             </div>
 
-            <div className="flex flex-col">
-              <label className="text-gray-800 font-semibold">Description</label>
-              <textarea
-                className="mt-2 h-32 p-3 border border-gray-300 rounded-md text-gray-900 outline-none resize-none w-full"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              ></textarea>
+            <div className="grid grid-cols-1 gap-2 md:grid-cols-10">
+              <div className="flex flex-col col-span-2">
+                <label className="text-gray-800 font-semibold mb-1">
+                  Additional
+                </label>
+
+                <div className="flex items-center gap-4 py-3">
+                  <label className="text-gray-800 min-w-[80px]">Featured</label>
+                  <div className="flex gap-4">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={featured.yes}
+                        onChange={() => setFeatured(1)}
+                        className="h-4 w-4 accent-gray-800"
+                      />
+                      <span className="text-gray-800 font-semibold">Yes</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={featured.no}
+                        onChange={() => setFeatured(0)}
+                        className="h-4 w-4 accent-gray-800"
+                      />
+                      <span className="text-gray-800 font-semibold">No</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 py-3 border-t border-gray-300">
+                  <label className="text-gray-800 min-w-[80px]">Season</label>
+                  <div className="flex gap-4">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={season.yes}
+                        onChange={() => setSeason(1)}
+                        className="h-4 w-4 accent-gray-800"
+                      />
+                      <span className="text-gray-800 font-semibold">Yes</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={season.no}
+                        onChange={() => setSeason(0)}
+                        className="h-4 w-4 accent-gray-800"
+                      />
+                      <span className="text-gray-800 font-semibold">No</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 py-3 border-t border-gray-300">
+                  <label className="text-gray-800 min-w-[80px]">Episodes</label>
+                  <div className="flex gap-4">
+                    <input
+                      type="number"
+                      onChange={(e) => setEpisodes(e.target.value)}
+                      className="border outline-none rounded w-full border-gray-400 p-1 text-gray-900"
+                      placeholder="Number of Episodes"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col col-span-8">
+                <label className="text-gray-800 font-semibold">
+                  Description
+                </label>
+                <textarea
+                  className="mt-2 h-32 p-3 border border-gray-300 rounded-md text-gray-900 outline-none resize-none w-full"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                ></textarea>
+              </div>
             </div>
 
             <div>

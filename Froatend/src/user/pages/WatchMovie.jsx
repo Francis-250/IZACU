@@ -1,20 +1,40 @@
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { heroContent } from "../../assets/assets";
 import {
   FaArrowLeft,
   FaCloudDownloadAlt,
   FaThumbsDown,
   FaThumbsUp,
-} from "react-icons/fa"; 
+} from "react-icons/fa";
+import Loading from "../../user/components/Loading";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const WatchMovie = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Get Data
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get("http://localhost:3000/movies")
+      .then((res) => {
+        setData(res.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
+  }, []);
+
   const navigate = useNavigate();
   const { id } = useParams();
-  const movie = heroContent.find((m) => m.id === parseInt(id, 10));
-  const suggestions = heroContent.filter((m) => m.id !== parseInt(id, 10));
+  const movie = data.find((m) => m.id === parseInt(id, 10));
+  const suggestions = data.filter((m) => m.id !== parseInt(id, 10));
 
-  if (!movie) {
-    return <div className="text-center text-white text-xl">No Movie Found</div>;
+  if (isLoading) {
+    return <Loading />;
   }
 
   const googleDriveVideoUrl = `https://drive.google.com/uc?id=${movie.videoUrl}`;
@@ -52,16 +72,21 @@ const WatchMovie = () => {
                 className="block group"
               >
                 <div className="flex items-center space-x-4">
-                  <img
+                  {/* <img
                     src={suggestion.thumbnail}
                     alt={suggestion.title}
                     className="w-20 h-12 object-cover rounded-lg"
-                  />
+                  /> */}
+                  <div className="w-20 h-12 object-cover rounded-lg bg-black">
+                    d
+                  </div>
                   <div>
                     <p className="text-sm font-semibold group-hover:text-red-600 transition duration-300">
                       {suggestion.title}
                     </p>
-                    <p className="text-xs text-gray-400">{suggestion.genre}</p>
+                    <p className="text-xs text-gray-400">
+                      {suggestion.transilator}
+                    </p>
                   </div>
                 </div>
               </Link>
@@ -73,7 +98,7 @@ const WatchMovie = () => {
       <div className="flex flex-col md:flex-row md:justify-between gap-4 mt-4 w-3/4">
         <Link className="flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-500 transition text-white font-semibold rounded-lg shadow-md gap-2 w-full md:w-auto">
           <FaCloudDownloadAlt className="text-xl" />
-          {movie.buttons[1]}
+          Download
         </Link>
         <div className="flex gap-4 mt-4">
           <button className="p-3 border border-gray-700 rounded-lg hover:bg-gray-700 transition">

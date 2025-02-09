@@ -13,6 +13,8 @@ import Download from "./user/pages/Download";
 import WatchMovie from "./user/pages/WatchMovie";
 import Login from "./user/pages/Login";
 
+import NotFound from "./user/pages/NotFound";
+
 const App = () => {
   return (
     <div>
@@ -30,6 +32,8 @@ const App = () => {
           <Route path="/admin/movies" element={<MovieDetail />} />
           <Route path="/admin/profiles" element={<ProfileDetail />} />
           <Route path="/admin/users" element={<UserDetail />} />
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>

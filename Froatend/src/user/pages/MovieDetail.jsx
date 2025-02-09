@@ -1,5 +1,4 @@
 import { useNavigate, Link, useParams } from "react-router-dom";
-import { heroContent } from "../../assets/assets";
 import {
   FaArrowLeft,
   FaCloudDownloadAlt,
@@ -9,14 +8,35 @@ import {
   FaThumbsDown,
   FaThumbsUp,
 } from "react-icons/fa";
+import Loading from "../../user/components/Loading";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const MovieDetail = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Get Data
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get("http://localhost:3000/movies")
+      .then((res) => {
+        setData(res.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
+  }, []);
+
   const navigate = useNavigate();
   const { id } = useParams();
-  const movie = heroContent.find((m) => m.id === parseInt(id, 10));
+  const movie = data.find((m) => m.id === parseInt(id, 10));
 
-  if (!movie) {
-    return <div className="text-center text-white text-xl">No Movie Found</div>;
+  if (isLoading) {
+    return <Loading />;
   }
 
   return (
@@ -45,10 +65,7 @@ const MovieDetail = () => {
 
       <div className="mt-6 flex flex-col lg:flex-row items-center gap-6">
         <div className="w-full lg:w-1/2">
-          <div
-            className="w-full h-[50vh] md:h-[60vh] bg-cover bg-center rounded-lg shadow-lg"
-            style={{ backgroundImage: `url(${movie.thumbnail})` }}
-          ></div>
+          <div className="w-full h-[50vh] md:h-[60vh] bg-cover bg-center rounded-lg shadow-lg bg-black"></div>
         </div>
 
         <div className="w-full lg:w-1/2 flex flex-col gap-4">
@@ -56,39 +73,34 @@ const MovieDetail = () => {
 
           <div className="flex flex-wrap gap-3">
             <span className="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md">
-              {movie.isNew ? "New Release" : "Classic"}
+              New Release
             </span>
             <span className="px-4 py-2 border border-gray-500 text-sm font-medium rounded-md">
-              {movie.narrator}
+              {movie.translator}
             </span>
           </div>
 
-          <p className="text-gray-300 leading-relaxed">{movie.desc}</p>
+          <p className="text-gray-300 leading-relaxed">{movie.description}</p>
 
           <div className="flex flex-wrap gap-2">
             <span className="text-lg font-semibold">Genre:</span>
-            {movie.genre.map((genre, index) => (
-              <span
-                key={index}
-                className="px-3 py-1 text-sm bg-gray-700 rounded-md"
-              >
-                {genre}
-              </span>
-            ))}
+            <span className="px-3 py-1 text-sm bg-gray-700 rounded-md">
+              {movie.translator}
+            </span>
           </div>
 
           <div className="flex flex-col gap-1">
             <span className="text-lg">
-              <strong>Released:</strong> {movie.RealDate}
+              <strong>Released:</strong> {movie.release_date}
             </span>
             <span className="text-lg">
               <strong>Country:</strong> {movie.country}
             </span>
             <span className="text-lg">
-              <strong>Actor:</strong> {movie.narrator}
+              <strong>Actor:</strong> {movie.translator}
             </span>
             <span className="text-lg">
-              <strong>Translator:</strong> {movie.transilator}
+              <strong>Translator:</strong> {movie.translator}
             </span>
           </div>
 
@@ -107,14 +119,14 @@ const MovieDetail = () => {
               className="flex items-center justify-center px-6 py-3 bg-green-600 hover:bg-green-500 transition text-white font-semibold rounded-lg shadow-md gap-2 w-full md:w-auto"
             >
               <FaPlayCircle className="text-xl" />
-              {movie.buttons[0]}
+              Play
             </Link>
             <Link
               to={`/download/${movie.id}`}
               className="flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-500 transition text-white font-semibold rounded-lg shadow-md gap-2 w-full md:w-auto"
             >
               <FaCloudDownloadAlt className="text-xl" />
-              {movie.buttons[1]}
+              Download
             </Link>
           </div>
 

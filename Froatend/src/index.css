@@ -25,5 +25,5 @@ body {
   font-family: "Poppins", serif;
   background: #111827;
   color: #fff;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }

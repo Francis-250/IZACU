@@ -5,7 +5,8 @@ import path from "path";
 export const addMovie = (req, res) => {
   const {
     title,
-    drive_url,
+    video_url,
+    thumbnail_url,
     duration,
     category,
     translator,
@@ -13,17 +14,19 @@ export const addMovie = (req, res) => {
     status,
     release_date,
     description,
+    featured,
+    season,
+    episode,
   } = req.body;
-  if (!drive_url) {
-    console.log("provide drive url");
-  }
+
   const sql =
-    "INSERT INTO movies(title, drive_url, duration, category, translator, country,status,release_date,description) VALUES(?,?,?,?,?,?,?,?,?)";
+    "INSERT INTO movies(title, video_url, thumbnail_url, duration, category, translator, country, status, release_date, description, featured, season, episode) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
   db.query(
     sql,
     [
       title,
-      drive_url,
+      video_url,
+      thumbnail_url,
       duration,
       category,
       translator,
@@ -31,12 +34,15 @@ export const addMovie = (req, res) => {
       status,
       release_date,
       description,
+      featured,
+      season,
+      episode,
     ],
     (err, result) => {
       if (err) {
         console.log(err);
       }
-      console.log("Movie Created");
+      console.log("Movie created");
     }
   );
 };

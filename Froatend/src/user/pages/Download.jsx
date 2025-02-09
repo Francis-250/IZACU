@@ -1,19 +1,39 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
 import { heroContent } from "../../assets/assets";
 import { FaArrowLeft, FaCloudDownloadAlt } from "react-icons/fa";
+import Loading from "../../user/components/Loading";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Download = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Get Data
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get("http://localhost:3000/movies")
+      .then((res) => {
+        setData(res.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
+  }, []);
+
   const navigate = useNavigate();
   const { id } = useParams();
-  const movie = heroContent.find((m) => m.id === parseInt(id, 10));
+  const movie = data.find((m) => m.id === parseInt(id, 10));
 
   const [selectedSeason, setSelectedSeason] = useState(1);
   const [selectedEpisode, setSelectedEpisode] = useState(1);
 
-  if (!movie) {
-    return <div className="text-center text-white text-xl">No Movie Found</div>;
-  } 
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const url =
     "https://drive.google.com/file/d/1xfHJoLjabqIcoTwE7YxNGzvXxDtm89fn/view?usp=sharing";
@@ -45,8 +65,8 @@ const Download = () => {
         </svg>
       </div>
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-30"
-        style={{ backgroundImage: `url(${movie.thumbnail})` }}
+        className="absolute inset-0 bg-cover bg-center opacity-30 bg-black"
+        // style={{ backgroundImage: `url(${movie.thumbnail})` }}
       ></div>
       <div className="flex items-center justify-between relative z-10">
         <button
