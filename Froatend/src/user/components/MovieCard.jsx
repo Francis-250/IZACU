@@ -84,7 +84,7 @@ const MovieCard = () => {
               ))}
             </div>
             <div className="absolute bottom-0 w-full p-4 text-white z-10">
-              <span className="border border-white px-3 py-1 rounded text-xs bg-white bg-opacity-20">
+              <span className="border border-white px-3 py-1 rounded text-xs bg-white/20">
                 {content.narrator}
               </span>
               <h3 className="text-lg font-semibold mt-2">{content.title}</h3>

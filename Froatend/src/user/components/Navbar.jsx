@@ -5,7 +5,9 @@ const Navbar = () => {
   return (
     <div className="flex md:flex-row flex-col gap-3 md:gap-0 border-b border-gray-600 justify-between items-center p-4">
       <div className="flex items-center">
-        <header className="text-2xl text-white font-bold">Izacu</header>
+        <Link to="/" className="text-2xl text-white font-bold">
+          Izacu
+        </Link>
       </div>
       <div className="flex items-center gap-4">
         <div className="flex items-center border border-gray-600 rounded-full overflow-hidden bg-gray-800">

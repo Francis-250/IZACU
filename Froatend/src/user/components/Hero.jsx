@@ -11,17 +11,17 @@ const Hero = () => {
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${hero.thumbnail})` }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-70"></div>
+        <div className="absolute inset-0 bg-black/70"></div>
       </div>
 
       <div className="relative z-10 w-full">
         <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-center justify-between w-full text-white">
           <div className="flex flex-col gap-4 md:w-[60%] w-full">
             <div className="flex flex-wrap gap-2">
-              <span className="border border-gray-300 px-3 py-1 rounded text-sm bg-white bg-opacity-20">
+              <span className="border border-gray-300 px-3 py-1 rounded text-sm bg-white/20">
                 {hero.isNew ? "Filime Nshya" : "Filime"}
               </span>
-              <span className="border border-gray-300 px-3 py-1 rounded text-sm bg-white bg-opacity-20">
+              <span className="border border-gray-300 px-3 py-1 rounded text-sm bg-white/20">
                 {hero.narrator}
               </span>
             </div>
@@ -29,10 +29,10 @@ const Hero = () => {
               {hero.title}
             </h1>
             <div className="flex flex-wrap items-center gap-2">
-              <span className="border border-gray-300 px-3 py-1 rounded text-sm bg-white bg-opacity-20">
+              <span className="border border-gray-300 px-3 py-1 rounded text-sm bg-white/20">
                 {hero.genre[0]}
               </span>
-              <span className="border border-gray-300 px-3 py-1 rounded text-sm bg-white bg-opacity-20">
+              <span className="border border-gray-300 px-3 py-1 rounded text-sm bg-white/20">
                 {hero.genre[1]}
               </span>
               <span className="text-lg mx-2">|</span>
@@ -48,7 +48,7 @@ const Hero = () => {
                 {hero.buttons[0]}
               </Link>
               <Link
-                to={`/movie/${hero.id}`}
+                to={`/download/${hero.id}`}
                 className="flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-500 transition text-white font-semibold rounded-lg shadow-md gap-2 w-full md:w-auto"
               >
                 <FaCloudDownloadAlt className="text-xl" />
