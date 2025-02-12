@@ -28,6 +28,7 @@ export const heroContent = [
     type: 1,
     country: "USA",
     transilator: "Junior",
+    thumburl: "https://drive.google.com/file/d/1ksbmcSp148V3ardme0kGZyvzouIx4uzz/view?usp=drive_link",
   },
   {
     id: 2,
@@ -42,6 +43,7 @@ export const heroContent = [
     type: 2,
     country: "USA",
     transilator: "Dylan",
+    thumburl: "https://drive.google.com/file/d/1YJ_tT6QuHWqtH1EjVo59imLcNzB_jy9u/view?usp=drive_link",
   },
   {
     id: 3,
@@ -56,6 +58,7 @@ export const heroContent = [
     type: 3,
     country: "Australia",
     transilator: "Rocky",
+    thumburl: "https://drive.google.com/file/d/1J4H4UY1-5Wj9UBBBMwE4QcFLKQjl29LB/view?usp=drive_link",
   },
   {
     id: 4,
@@ -70,6 +73,7 @@ export const heroContent = [
     type: 1,
     country: "Italy",
     transilator: "gaheza",
+    thumburl: "https://drive.google.com/file/d/1dc6nzlmFPBArCcE-yxuRPJfiNAg6_1lN/view?usp=drive_link",
   },
   {
     id: 5,
@@ -84,6 +88,7 @@ export const heroContent = [
     type: 2,
     country: "USA",
     transilator: "Junior",
+    thumburl: "https://drive.google.com/file/d/1P2SulaF5PS1nejet1BjJtSJPcQuBFrMC/view?usp=drive_link",
   },
   {
     id: 6,
@@ -98,6 +103,7 @@ export const heroContent = [
     type: 3,
     country: "USA",
     transilator: "Rocky",
+    thumburl: "https://drive.google.com/file/d/1bUnMD_T23a71CDjWp14gJPmg8RI2LE0t/view?usp=drive_link",
   },
 ];
 

@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { heroContent } from "../../assets/assets";
 import { FaArrowLeft, FaCloudDownloadAlt } from "react-icons/fa";
 import Loading from "../../user/components/Loading";
 import { useEffect, useState } from "react";

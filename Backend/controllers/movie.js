@@ -20,7 +20,7 @@ export const addMovie = (req, res) => {
   } = req.body;
 
   const sql =
-    "INSERT INTO movies(title, video_url, thumbnail_url, duration, category, translator, country, status, release_date, description, featured, season, episode) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    "INSERT INTO movies (title, video_url, thumbnail_url, duration, category, translator, country, status, release_date, description, featured, season, episode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   db.query(
     sql,
     [

@@ -65,7 +65,14 @@ const MovieDetail = () => {
 
       <div className="mt-6 flex flex-col lg:flex-row items-center gap-6">
         <div className="w-full lg:w-1/2">
-          <div className="w-full h-[50vh] md:h-[60vh] bg-cover bg-center rounded-lg shadow-lg bg-black"></div>
+          <div
+            className="w-full h-[50vh] md:h-[60vh] bg-cover bg-center rounded-lg shadow-lg bg-black"
+            style={{
+              backgroundImage: `url(${movie.thumbnail_url})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          ></div>
         </div>
 
         <div className="w-full lg:w-1/2 flex flex-col gap-4">
